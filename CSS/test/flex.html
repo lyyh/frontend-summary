@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      .box-flex {
+        height: 100px;
+        display: flex;
+        background-color: gray;
+      }
+      .right {
+        margin-left: auto;
+      }
+      .box-flex-1{
+          height: 100px;
+          display: flex;
+      }
+      .left-column{
+          background-color: #eeeeee;
+      }
+      .center-column {
+          flex: 1;
+          background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 让单个元素靠右对其 -->
+    <div class="box-flex"><button class="right">right button</button></div>
+    <!-- 两列布局 -->
+    <div class="box-flex-1">
+        <div class="left-column">left column</div>
+      <div class="center-column">center column</div>
+        <div class="right-column">right column</div>
+    </div>
+  </body>
+</html>
