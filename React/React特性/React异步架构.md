@@ -39,15 +39,17 @@ export type Fiber = {
 原因：在调度阶段时间分片可能会被用完，被中断和恢复的（重头再来），所以导致会多次执行 componentWillMount、componentWillReceiveProps、componentWillUpdate
 造成跟预期不一致
 
-- static getDerivedStateFromProps
+- static getDerivedStateFromProps  
+触发时期：获取新的props或者setState等组件渲染时触发  
 主要取代 ComponentWillXXX 等 render 之前生命周期，不能使用this指针，解除此类生命周期带来的副作用。
 - getSnapshotBeforeUpdate
 render之后 componentDidxxx 之前，但是可以获取到dom节点信息
 
-因为componentWillXXX可能会被调用多次，所以禁止在此类生命周期中做副作用操作
+因为componentWillXXX可能会被调用多次，如果在其中进行ajax，可能会导致多次重复的请求，所以禁止在此类生命周期中做副作用操作
 
-- componentDidCatch 在 Renderer 阶段调用(render之后)
 - getDerivedStateFromError 在 Reconcile 阶段调用(render之前)
+- componentDidCatch 在 Renderer 阶段调用(render之后)
+
 区别：
 1. 调用阶段不一样
 2. componentDidCatch 是不会在服务器端渲染的时候被调用的 而 getDerivedStateFromError 会。
