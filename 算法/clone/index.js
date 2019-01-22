@@ -35,15 +35,19 @@ var deepClone = (source) => {
 console.log(deepClone(source))
 
 // 兼容数组的写法
+// 保留数组
 var isObject = (target) => {
-	return
+	return typeof target == 'object' && target !== null
 }
+
 var deepCloneWithArray = source => {
-	var target = {}
+	if(!isObject(source))return source
+
+	var target = Array.isArray(source)?[]:{}
 	for(var key in source){
 		if(Object.prototype.hasOwnProperty.call(source,key)){
 			if(typeof source[key] === 'object'){
-				target[key] = deepClone(source[key])
+				target[key] = deepCloneWithArray(source[key])
 			}else{
 				target[key] = source[key]
 			}
@@ -51,3 +55,14 @@ var deepCloneWithArray = source => {
 	}
 	return target
 }
+
+var obj = {a:1}
+var source1 = {
+    a:{b:1},
+    c:Array.of(obj),
+    d:function () {
+        return true
+    }
+}
+var target1 = deepCloneWithArray(source1)
+console.log(target1.c[0]===source1.c[0])

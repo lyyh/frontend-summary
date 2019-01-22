@@ -2,7 +2,7 @@
 ### 背景
 早期的 Stack 架构分为两个阶段：调度阶段（Reconcile）、渲染阶段（Renderer）
 - Reconcile:自顶向下的递归算法，遍历节点生成 Virtual DOM，通过 Diff 算法找到需要更新的元素
-放到更新队列中，整个过程占用主线程（javascript单线程），阻塞用户交互、动画等周期性任务，造成页面卡顿（同步渲染）  
+放到更新队列中，整个过程占用主线程（javascript单线程），阻塞用户交互、动画等周期性任务，造成页面卡顿（同步渲染）
 - Renderer:在浏览器中更新对应的DOM元素
 - Fiber v16 引入（异步渲染）
 
@@ -31,7 +31,12 @@ export type Fiber = {
   ...
 }
 ```
+在virtualDOM基础上增加了一层 Fiber Node，主要是将递归遍历变成循环遍历。
+所有Fiber Node连接起来形成一个单链表结构。
 
+
+### 实现原理的背后API
+requestIdleCallback，作用是为了在浏览器空闲时依次调用低优先级任务的函数
 ### 控制权交付原理
 
 
@@ -60,6 +65,6 @@ render之后 componentDidxxx 之前，但是可以获取到dom节点信息
 函数式组件
 
 ## 参考资料
-[React Fiber架构](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651229937&idx=1&sn=0d979f82318431171390af58d5f16195&chksm=bd4957758a3ede639ff66f148af0e744365f61f95f1b6fc7d4814e8f886a624da0d2eaaf20ab&mpshare=1&scene=23&srcid=01150aujDwYRsKarUVilDhkk#rd)  
+[React Fiber架构](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651229937&idx=1&sn=0d979f82318431171390af58d5f16195&chksm=bd4957758a3ede639ff66f148af0e744365f61f95f1b6fc7d4814e8f886a624da0d2eaaf20ab&mpshare=1&scene=23&srcid=01150aujDwYRsKarUVilDhkk#rd)
 [React v16 新特性](https://segmentfault.com/a/1190000017483690)
 
