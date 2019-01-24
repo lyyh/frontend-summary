@@ -12,7 +12,7 @@
 
 const DiyReact = importFromBelow();
 
-const randomLikes = () => Math.ceil(Math.random() * 100);
+const randomLikes = () => Math.ceil(Math.random() * 100); // ceil 向上取整
 
 const stories = [
     {name: "React", url: "https://reactjs.org/", likes: randomLikes()},
